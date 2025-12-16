@@ -25,8 +25,8 @@ dependencies:
   video_player: ^2.8.0
   photo_view: ^0.14.0
   
-  # Gallery Saving
-  image_gallery_saver: ^2.0.3
+  # Gallery Saving - Using gal which is actively maintained
+  gal: ^2.3.0
   
   # UI Components
   shimmer: ^3.0.0

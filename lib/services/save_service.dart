@@ -2,9 +2,8 @@
 /// Handles saving statuses to gallery and managing saved files.
 
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:gal/gal.dart';
 import 'package:path_provider/path_provider.dart';
 import '../core/constants/app_constants.dart';
 import '../models/status_file.dart';
@@ -91,7 +90,7 @@ class SaveService extends ChangeNotifier {
     notifyListeners();
   }
   
-  /// Save a status to gallery
+  /// Save a status to gallery using gal package
   Future<bool> saveStatus(StatusFile status) async {
     try {
       final sourceFile = File(status.path);
@@ -101,30 +100,20 @@ class SaveService extends ChangeNotifier {
         return false;
       }
       
-      final Uint8List bytes = await sourceFile.readAsBytes();
-      
-      dynamic result;
+      // Use gal package to save to gallery
       if (status.isVideo) {
-        result = await ImageGallerySaver.saveFile(
-          status.path,
-          name: status.name,
-        );
+        await Gal.putVideo(status.path, album: CacheConfig.savedFolderName);
       } else {
-        result = await ImageGallerySaver.saveImage(
-          bytes,
-          quality: 100,
-          name: status.name.replaceAll(RegExp(r'\.[^.]+$'), ''),
-        );
+        await Gal.putImage(status.path, album: CacheConfig.savedFolderName);
       }
       
-      if (result != null && result['isSuccess'] == true) {
-        debugPrint('Saved status to gallery: ${status.name}');
-        await loadSavedStatuses();
-        return true;
-      } else {
-        _error = 'Failed to save to gallery';
-        return false;
-      }
+      debugPrint('Saved status to gallery: ${status.name}');
+      await loadSavedStatuses();
+      return true;
+    } on GalException catch (e) {
+      _error = 'Gallery error: ${e.type.name}';
+      debugPrint(_error);
+      return false;
     } catch (e) {
       _error = 'Error saving status: $e';
       debugPrint(_error);
