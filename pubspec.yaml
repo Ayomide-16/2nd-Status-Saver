@@ -1,0 +1,43 @@
+name: status_saver
+description: "WhatsApp Status Saver - Save and cache WhatsApp statuses"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  
+  # State Management
+  provider: ^6.0.0
+  
+  # Storage & Permissions
+  shared_preferences: ^2.2.0
+  permission_handler: ^11.0.0
+  path_provider: ^2.1.0
+  
+  # Media Display
+  video_player: ^2.8.0
+  photo_view: ^0.14.0
+  
+  # Gallery Saving
+  image_gallery_saver: ^2.0.3
+  
+  # UI Components
+  shimmer: ^3.0.0
+  
+  # Utils
+  intl: ^0.18.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
