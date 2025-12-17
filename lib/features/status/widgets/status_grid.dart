@@ -4,15 +4,15 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../core/constants/app_constants.dart';
-import '../../models/status_file.dart';
+import '../../../core/constants/app_constants.dart';
+import '../../../models/status_file.dart';
 
 class StatusGrid extends StatelessWidget {
   final List<StatusFile> statuses;
   final bool isLoading;
   final VoidCallback? onRefresh;
-  final Function(StatusFile)? onTap;
-  final Function(StatusFile)? onLongPress;
+  final void Function(StatusFile)? onTap;
+  final void Function(StatusFile)? onLongPress;
   final Set<StatusFile>? selectedStatuses;
   
   const StatusGrid({
@@ -24,6 +24,7 @@ class StatusGrid extends StatelessWidget {
     this.onLongPress,
     this.selectedStatuses,
   });
+
 
   @override
   Widget build(BuildContext context) {
